@@ -175,6 +175,23 @@ var startGame = function(){
 var endGame = function() {
     window.alert("The game has ended. Let's see how you did!")
 
+    // check local storage for highscore, if not available yet, set to 0
+    var highScore = localStorage.getItem("highscore");
+    if (highScore === null) {
+        highScore = 0;
+    } // we could also use a short circuit conditional statement
+        // highScore = highScore || 0;
+        // So, our code means that if the highScore value is falsy (for example, null), then assign zero to highScore. If not, retain whatever value is currently stored in highScore.
+
+    // if player has more money than high score , player has new highscore
+    if (playerInfo.money > highScore) {
+        localStorage.setItem("highscore", playerInfo.money);
+        localStorage.setItem("name", playerInfo.name);
+        alert(playerInfo.name + " now has the highscore of " + playerInfo.money + "!");
+    } else {
+        alert(playerInfo.name + " has not beaten the highscore of " + highscore + " Maybe next time!");
+    }
+
     // if player is still alive, player wins!
     if(playerInfo.health > 0) {
         window.alert("Great job you have survived the Game! You now have a score of " + playerInfo.money + ".");
